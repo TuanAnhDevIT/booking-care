@@ -1,5 +1,6 @@
 import db from "../models/index"
 import bcrypt from 'bcryptjs';
+import { param } from "express/lib/request";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -197,10 +198,35 @@ let updateUserData = (data) => {
     })
 }
 
+let getAllCodeService = (typeInput) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!typeInput) {
+                resolve({
+                    errCode: 1,
+                    errMessage: 'missing required parameter'
+                })
+            } else {
+                let res = {};
+                let allcode = await db.Allcode.findAll({
+                    where: { type: typeInput } //select * from Allcodes where type=typeInput
+                });
+                res.errCode = 0;
+                res.data = allcode;
+                resolve(res)
+
+            }
+        } catch (e) {
+            reject()
+        }
+    })
+}
+
 module.exports = {
     handleUserLogin: handleUserLogin,
     getAllUsers: getAllUsers,
     CreateNewUser: CreateNewUser,
     updateUserData: updateUserData,
-    deleteUser: deleteUser
+    deleteUser: deleteUser,
+    getAllCodeService: getAllCodeService
 }
