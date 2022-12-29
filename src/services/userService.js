@@ -107,7 +107,9 @@ let getAllUsers = (userId) => {
 }
 
 let CreateNewUser = (data) => {
+    console.log("ahihi", data)
     return new Promise(async (resolve, reject) => {
+
         try {
             //check email is exist ?
             let check = await checkUserEmail(data.email);

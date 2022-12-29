@@ -1,4 +1,7 @@
+
 import doctorService from '../services/doctorService.js';
+
+
 let getTopDoctorHome = async (req, res) => {
     let limit = req.query.limit;
     if (!limit) limit = 10;
@@ -14,6 +17,6 @@ let getTopDoctorHome = async (req, res) => {
     }
 }
 
-module.exports = {
+export default {
     getTopDoctorHome: getTopDoctorHome
 }
